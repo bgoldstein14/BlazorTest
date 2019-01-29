@@ -1,0 +1,34 @@
+﻿@page "/one-way-data-binding"
+<!-- Use this button to trigger changes in the source values -->
+<button onclick="@ChangeValues">Change values</button>
+
+<p>Counter: @Count</p>
+
+@if (ShowWarning)
+{
+    <p style="background-color: red; padding: 5px">Warning!</p>
+}
+
+<p style="background-color: @Background; color=white; padding: 5px">Notification</p>
+
+<ul>
+    @foreach (var number in Numbers)
+    {
+        <li>@number</li>
+    }
+</ul>
+
+@functions {
+    private int Count { get; set; } = 0;
+    private bool ShowWarning { get; set; } = true;
+    private string Background { get; set; } = "red";
+    private List<int> Numbers { get; set; } = new List<int> { 1, 2, 3 };
+
+    private void ChangeValues()
+    {
+        Count++;
+        ShowWarning = !ShowWarning;
+        Background = Background == "red" ? "green" : "red";
+        Numbers.Add(Numbers.Max() + 1);
+    }
+}
